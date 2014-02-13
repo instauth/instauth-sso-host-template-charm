@@ -1,0 +1,12 @@
+name: any-charm
+summary: A placeholder for any SSO consumer
+maintainer: Florian Waibel <fwaibel@eclipsesource.com>
+description: |
+  This is a placehoder for any SSO consumer indended to use Instauth.
+categories:
+  - security
+subordinate: false
+provides:
+  sso-host:
+    interface: sso-config
+    scope: container
