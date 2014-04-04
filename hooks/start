@@ -17,7 +17,7 @@ BASEURL=http://$(echo $IPADDR:$PORT | sed 's/:80$//')
 
 juju-log "Configured base URL: $BASEURL"
 
-/usr/bin/mvn -D jetty.port=$PORT  -f $PROJ_DIR/pom.xml jetty:run &
+/usr/bin/mvn -D jetty.port=$PORT -DwebappRoot="$BASEURL" -f $PROJ_DIR/pom.xml jetty:run &
 disown
 
 juju-log "$PROJ_NAME starting..."
