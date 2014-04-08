@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e # If any command fails, stop execution of the hook with that error
-juju-log "I am in $(pwd)"
 
 . hooks/proj.cfg
 
@@ -19,10 +18,10 @@ apt-get install -y maven
 
 juju-log "Java, Git and Maven successfully installed."
 
-rm -rf $PROJ_DIR
-git clone https://github.com/instauth/${PROJ_DIR}.git
+rm -rf "$PROJ_DIR"
+git clone https://github.com/instauth/$PROJ_NAME.git "$PROJ_DIR"
 
-juju-log "$PROJ_DIR successfully cloned."
+juju-log "$PROJ_NAME successfully cloned."
 
 /usr/bin/mvn -Dmaven.test.skip=true -f $PROJ_DIR/pom.xml install
 

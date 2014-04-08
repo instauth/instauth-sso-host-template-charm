@@ -6,8 +6,5 @@ set -e # If any command fails, stop execution of the hook with that error
 
 juju-log "Entered the $PROJ_NAME charm stop hook."
 
-juju-log "$PROJ_NAME stopping..."
+"$PROJ_DIR/stop"
 
-killall java
-
-rm -f .lock && juju-log "Removed lockfile - waiting 30 seconds." && sleep 30

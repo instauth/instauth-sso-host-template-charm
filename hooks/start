@@ -6,22 +6,11 @@ set -e # If any command fails, stop execution of the hook with that error
 
 juju-log "Entered the $PROJ_NAME charm start hook."
 
-PORT=80
 juju-log "Opening port $PORT for $PROJ_NAME"
 open-port $PORT
 
-if [ -f .lock ]; then juju-log "Lockfile present. Already started." ; exit 0 ; fi
-
-IPADDR=$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d" " -f1)
-BASEURL=http://$(echo $IPADDR:$PORT | sed 's/:80$//')
-
-juju-log "Configured base URL: $BASEURL"
-
-/usr/bin/mvn -D jetty.port=$PORT -DwebappRoot="$BASEURL" -f $PROJ_DIR/pom.xml jetty:run &
+"$PROJ_DIR/start" &
 disown
 
 juju-log "$PROJ_NAME starting..."
 
-touch .lock
-
-juju-log "Lockfile created."
