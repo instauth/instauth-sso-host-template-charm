@@ -7,7 +7,7 @@ set -e # If any command fails, stop execution of the hook with that error
 juju-log "Entered the $PROJ_NAME charm start hook."
 
 juju-log "Opening port $PORT for $PROJ_NAME"
-open-port $PORT
+open-port 80
 
 "$PROJ_DIR/start" &
 disown
