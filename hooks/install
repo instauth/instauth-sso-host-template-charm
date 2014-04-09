@@ -6,15 +6,15 @@ set -e # If any command fails, stop execution of the hook with that error
 
 juju-log "Entered the $PROJ_NAME charm install hook."
 
-apt-get install -y software-properties-common
-add-apt-repository -y ppa:webupd8team/java
 apt-get update
-echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-apt-get install -y oracle-java7-installer
+apt-get -y --no-install-recommends install openjdk-7-jdk
+apt-get -y install curl
 
-apt-get install -y git
-apt-get install -y maven
+# some common tools
+mkdir /opt/tools
+curl http://apache.openmirror.de/maven/maven-3/3.2.1/binaries/apache-maven-3.2.1-bin.tar.gz | tar xz -C /opt/tools
+curl http://www.apache.org/dist/ant/binaries/apache-ant-1.9.3-bin.tar.bz2 | tar xj -C /opt/tools
+for i in /opt/tools/*/bin/*; do ln -s $i /usr/bin ; done
 
 juju-log "Java, Git and Maven successfully installed."
 
